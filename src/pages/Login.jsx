@@ -96,9 +96,7 @@ const Login = () => {
                     )}
                     <div className="w-100 text-center mt-2">
                         New User?{' '}
-                        <Link href="/LoomisLaundry/#/LoomisLaundry/#/register">
-                            Register
-                        </Link>
+                        <Link href="/LoomisLaundry/#/register">Register</Link>
                     </div>
                     <div className="w-100 text-center mt-1">
                         Forgot Password?{' '}
