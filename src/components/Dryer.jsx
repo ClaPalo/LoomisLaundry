@@ -115,6 +115,7 @@ const Dryer = ({ update }) => {
         setTimer(seconds) //Replace with time selected
         setInitialValue(seconds)
         prepareNewTimer(2, user.id, seconds)
+        setOwnerName(user.name)
         setWasherState('LOADED')
     }
 

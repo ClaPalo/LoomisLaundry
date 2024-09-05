@@ -122,6 +122,7 @@ const Washer = ({ update }) => {
         setTimer(seconds) //Replace with time selected
         setInitialValue(seconds)
         prepareNewTimer(1, user.id, seconds)
+        setOwnerName(user.name)
         setWasherState('LOADED')
     }
 
