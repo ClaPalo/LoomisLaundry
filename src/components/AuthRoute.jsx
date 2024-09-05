@@ -9,7 +9,7 @@ const AuthRoute = () => {
         <Outlet />
     ) : (
         <Navigate
-            to={'/LoomisLaundry/login'}
+            to={'/#/LoomisLaundry/login'}
             replace
             state={{ path: location.pathname }}
         />

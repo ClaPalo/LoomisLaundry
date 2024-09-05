@@ -13,7 +13,7 @@ const signOut = () => supabase.auth.signOut()
 
 const passwordReset = (email) =>
     supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: 'http://localhost:5173/update-password',
+        redirectTo: 'https://www.paloscia.com/LoomisLaundry/update-password',
     })
 
 const updatePassword = (updatedPassword) =>

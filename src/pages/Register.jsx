@@ -173,7 +173,7 @@ const Register = () => {
                     )}
                     <div className="w-100 text-center mt-2">
                         Already registered?{' '}
-                        <Link href="/LoomisLaundry/login">Login</Link>
+                        <Link href="/#/LoomisLaundry/login">Login</Link>
                     </div>
                 </div>
             </CardBody>
