@@ -106,7 +106,7 @@ export async function finishLoad(id) {
  * @param {*} loadId
  * @param {*} changeCallback
  */
-export function subscribeToRoom(loadId, changeCallback) {
+export function subscribeToRoom(changeCallback) {
     console.log('connecting to receive updates...')
     var timerTrack = supabase
         .channel('timer_track')
@@ -116,7 +116,6 @@ export function subscribeToRoom(loadId, changeCallback) {
                 event: '*',
                 schema: 'public',
                 table: 'timer_track',
-                filter: `id=eq.${loadId}`,
             },
             (payload) => {
                 changeCallback(payload['new'])

@@ -24,7 +24,7 @@ import {
 import { CardBody, CardFooter, CardHeader } from 'react-bootstrap'
 import { useDisclosure } from '@nextui-org/react'
 
-const Washer = ({ update }) => {
+const Dryer = ({ update }) => {
     const { user } = useAuth()
     const [washerState, setWasherState] = useState('') // States are WORKING, FINISHED, EMPTY, LOADED
     const [time, setTime] = useState(0)
@@ -35,18 +35,11 @@ const Washer = ({ update }) => {
 
     const { isOpen, onOpen, onOpenChange } = useDisclosure()
 
-    const washerModes = {
-        NORMAL: 3600,
-        ACTIVEWEAR: 2700,
-        DELICATES: 3000,
-        'BULKY ITEMS': 3300,
-        TOWELS: 3900,
-        'DRAIN & SPIN': 600,
-        'QUICK WASH': 1800,
-        COLORS: 2700,
-        WHITES: 3900,
-        'HEAVY DUTY': 4500,
-        JEANS: 3600,
+    const dryerModes = {
+        '15 min': 900,
+        '30 min': 1800,
+        '60 min': 3600,
+        '90 min': 5400,
     }
 
     const { totalSeconds, seconds, minutes, hours, resume, restart } = useTimer(
@@ -109,7 +102,7 @@ const Washer = ({ update }) => {
         }
 
         async function fetchData() {
-            let data = await getLoadData(1)
+            let data = await getLoadData(2)
             handleStateChange(data)
         }
         fetchData()
@@ -119,7 +112,7 @@ const Washer = ({ update }) => {
     const handleStartNew = (seconds) => {
         setTimer(seconds) //Replace with time selected
         setInitialValue(seconds)
-        prepareNewTimer(1, user.id, seconds)
+        prepareNewTimer(2, user.id, seconds)
         setWasherState('LOADED')
     }
 
@@ -129,20 +122,20 @@ const Washer = ({ update }) => {
         console.log('Initial: ', initialValue)
         let t = new Date()
         t.setSeconds(t.getSeconds() + time)
-        setTimeAndStart(1, t.getTime() / 1000, user.id)
+        setTimeAndStart(2, t.getTime() / 1000, user.id)
         setWasherState('WORKING')
     }
 
     // Called by Finish button
     const handleFinish = () => {
-        finishLoad(1)
+        finishLoad(2)
         setTimer(0)
         setWasherState('FINISHED')
     }
 
     // Called by Empty button
     const handleEmpty = () => {
-        emptyLoad(1)
+        emptyLoad(2)
         setWasherState('EMPTY')
     }
 
@@ -152,7 +145,7 @@ const Washer = ({ update }) => {
         <>
             <Card>
                 <CardHeader>
-                    <h2 className="font-bold text-2xl mt-4">Washing machine</h2>
+                    <h2 className="font-bold text-2xl mt-4">Dryer</h2>
                     <p className="mb-2">{washerState}</p>
                 </CardHeader>
                 <CardBody>
@@ -228,20 +221,32 @@ const Washer = ({ update }) => {
                         <>
                             <ModalBody>
                                 <div className="grid grid-cols-2 gap-2 mt-10">
-                                    {Object.keys(washerModes).map((mode) => (
+                                    <>
+                                        {Object.keys(dryerModes).map((mode) => (
+                                            <Button
+                                                onClick={() => {
+                                                    setSliderModified(false)
+                                                    handleStartNew(
+                                                        dryerModes[mode]
+                                                    )
+                                                    onClose()
+                                                }}
+                                                key={mode}
+                                            >
+                                                {mode}
+                                            </Button>
+                                        ))}
                                         <Button
+                                            className="col-span-2"
                                             onClick={() => {
                                                 setSliderModified(false)
-                                                handleStartNew(
-                                                    washerModes[mode]
-                                                )
+                                                handleStartNew(5400)
                                                 onClose()
                                             }}
-                                            key={mode}
                                         >
-                                            {mode}
+                                            Default
                                         </Button>
-                                    ))}
+                                    </>
                                     <Slider
                                         className="col-span-2 mt-4"
                                         label="Custom time"
@@ -289,4 +294,4 @@ const Washer = ({ update }) => {
     )
 }
 
-export default Washer
+export default Dryer
