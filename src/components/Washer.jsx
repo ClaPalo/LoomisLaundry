@@ -13,7 +13,7 @@ import {
     subscribeToRoom,
 } from '../javascript/time_database'
 
-const Washer = () => {
+const Washer = ({ id }) => {
     const { user } = useAuth()
     const [washerState, setWasherState] = useState('') // States are WORKING, FINISHED, EMPTY, LOADED
     const [time, setTime] = useState(0)
@@ -75,18 +75,18 @@ const Washer = () => {
         }
 
         async function fetchData() {
-            let data = await getLoadData(1)
+            let data = await getLoadData(id)
             handleStateChange(data)
         }
-        subscribeToRoom(1, handleStateChange)
+        subscribeToRoom(id, handleStateChange)
         fetchData()
-    }, [restart])
+    }, [restart, id])
 
     // Called by Start New button
     const handleStartNew = () => {
         // Open popup to select time
         setTimer(10) //Replace with time selected
-        prepareNewTimer(1, user.id)
+        prepareNewTimer(id, user.id)
         setWasherState('LOADED')
     }
 
@@ -95,26 +95,26 @@ const Washer = () => {
         resume()
         let t = new Date()
         t.setSeconds(t.getSeconds() + time)
-        setTimeAndStart(1, t.getTime() / 1000, user.id)
+        setTimeAndStart(id, t.getTime() / 1000, user.id)
         setWasherState('WORKING')
     }
 
     // Called by Finish button
     const handleFinish = () => {
-        finishLoad(1)
+        finishLoad(id)
         setTimer(0)
         setWasherState('FINISHED')
     }
 
     // Called by Empty button
     const handleEmpty = () => {
-        emptyLoad(1)
+        emptyLoad(id)
         setWasherState('EMPTY')
     }
 
     return (
         <>
-            <h1>Washer</h1>
+            {id === 1 ? <h1>Washing machine</h1> : <h1>Dryer</h1>}
             <p>{washerState}</p>
             <Timer hours={hours} minutes={minutes} seconds={seconds} />
             {washerState === 'FINISHED' && (
