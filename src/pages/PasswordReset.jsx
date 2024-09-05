@@ -34,7 +34,7 @@ const PasswordReset = () => {
         <>
             <Card>
                 <CardBody>
-                    <h2 className="text-center mb-4">Login</h2>
+                    <h2 className="text-center mb-4">Reset password</h2>
                     <div className="flex flex-col gap-4">
                         <Input
                             placeholder="johndoe@gmail.com"
@@ -66,7 +66,7 @@ const PasswordReset = () => {
                                 color="primary"
                                 onClick={handleSubmit}
                             >
-                                Login
+                                Reset password
                             </Button>
                         )}
                         <div className="w-100 text-center mt-2">
