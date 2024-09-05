@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { supabase } from '../supabaseClient'
+import { getUserName } from '../javascript/user_database'
 
 const AuthContext = createContext({})
 
@@ -22,6 +23,8 @@ const AuthProvider = ({ children }) => {
     const [auth, setAuth] = useState(false)
     const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(true)
+    const [name, setName] = useState('')
+    const [surname, setSurname] = useState('')
 
     useEffect(() => {
         setLoading(true)
@@ -29,6 +32,12 @@ const AuthProvider = ({ children }) => {
             const { data } = await supabase.auth.getUser()
             const { user: currentUser } = data
             setUser(currentUser ?? null)
+            if (currentUser) {
+                getUserName(currentUser.id).then((data) => {
+                    setName(data[0].name)
+                    setSurname(data[0].surname)
+                })
+            }
             setAuth(currentUser ? true : false)
             setLoading(false)
         }
@@ -39,10 +48,16 @@ const AuthProvider = ({ children }) => {
                     setAuth(false)
                 } else if (event === 'SIGNED_IN') {
                     setUser(session.user)
+                    getUserName(session.user.id).then((data) => {
+                        setName(data[0].name)
+                        setSurname(data[0].surname)
+                    })
                     setAuth(true)
                 } else if (event === 'SIGNED_OUT') {
                     setAuth(false)
                     setUser(null)
+                    setName('')
+                    setSurname('')
                 }
             }
         )
@@ -56,6 +71,8 @@ const AuthProvider = ({ children }) => {
             value={{
                 auth,
                 user,
+                name,
+                surname,
                 login,
                 signOut,
                 passwordReset,
