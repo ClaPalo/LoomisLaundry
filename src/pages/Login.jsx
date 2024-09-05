@@ -39,7 +39,7 @@ const Login = () => {
                 error,
             } = await login(email, password)
             if (error) setErrorMsg(error.message)
-            if (user && session) navigate('/')
+            if (user && session) navigate('/LoomisLaundry/')
         } catch (error) {
             setErrorMsg('Email or Password Incorrect')
         }
