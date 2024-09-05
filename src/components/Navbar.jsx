@@ -22,7 +22,7 @@ const NavBar = () => {
                         as={Link}
                         color="primary"
                         variant="shadow"
-                        href="/LoomisLaundry/#/LoomisLaundry/login"
+                        href="/LoomisLaundry/#/login"
                     >
                         Login
                     </Button>
@@ -31,7 +31,7 @@ const NavBar = () => {
                     <Button
                         as={Link}
                         variant="ghost"
-                        href="/LoomisLaundry/#/LoomisLaundry/register"
+                        href="/LoomisLaundry/#/register"
                     >
                         Register
                     </Button>

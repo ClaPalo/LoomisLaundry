@@ -10,7 +10,7 @@ import './App.css'
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
         <NextUIProvider>
-            <HashRouter basename="LoomisLaundry">
+            <HashRouter>
                 <AuthProvider>
                     <main className="dark">
                         <App />

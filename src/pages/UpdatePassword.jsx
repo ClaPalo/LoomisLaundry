@@ -35,7 +35,7 @@ const UpdatePassword = () => {
             setLoading(true)
             const { data, error } = await updatePassword(password)
             if (!error) {
-                navigate('/LoomisLaundry/#/LoomisLaundry/')
+                navigate('/')
             }
         } catch (error) {
             setErrorMsg('Error in Updating Password. Please try again')

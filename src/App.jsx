@@ -18,26 +18,17 @@ const App = () => {
                 <div className="w-full">
                     <Routes>
                         <Route element={<AuthRoute />}>
-                            <Route path="/LoomisLaundry/" element={<Home />} />
-                            <Route
-                                path="/LoomisLaundry/home"
-                                element={<Home />}
-                            />
+                            <Route path="/" element={<Home />} />
+                            <Route path="/home" element={<Home />} />
                         </Route>
+                        <Route path="/register" element={<Register />} />
+                        <Route path="/login" element={<Login />} />
                         <Route
-                            path="/LoomisLaundry/register"
-                            element={<Register />}
-                        />
-                        <Route
-                            path="/LoomisLaundry/login"
-                            element={<Login />}
-                        />
-                        <Route
-                            path="/LoomisLaundry/passwordreset"
+                            path="/passwordreset"
                             element={<PasswordReset />}
                         />
                         <Route
-                            path="/LoomisLaundry/update-password"
+                            path="/update-password"
                             element={<UpdatePassword />}
                         />
                     </Routes>
