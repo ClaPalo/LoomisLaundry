@@ -91,6 +91,7 @@ const Washer = ({ update }) => {
                 setWasherState('FINISHED')
             } else if (end_time <= currentTime && empty) {
                 console.log('Setting state to EMPTY')
+                setTimer(0)
                 setWasherState('EMPTY')
             } else if (!running && !empty) {
                 console.log('Setting state to LOADED')
@@ -113,7 +114,7 @@ const Washer = ({ update }) => {
             handleStateChange(data)
         }
         fetchData()
-    }, [update, handleUpdate, restart])
+    }, [update, restart])
 
     // Called by Start New button
     const handleStartNew = (seconds) => {
@@ -125,12 +126,14 @@ const Washer = ({ update }) => {
 
     // Called by Start button
     const handleStart = () => {
-        resume()
-        console.log('Initial: ', initialValue)
-        let t = new Date()
-        t.setSeconds(t.getSeconds() + time)
-        setTimeAndStart(1, t.getTime() / 1000, user.id)
-        setWasherState('WORKING')
+        if (totalSeconds > 0) {
+            resume()
+            console.log('Initial: ', initialValue)
+            let t = new Date()
+            t.setSeconds(t.getSeconds() + time)
+            setTimeAndStart(1, t.getTime() / 1000, user.id)
+            setWasherState('WORKING')
+        }
     }
 
     // Called by Finish button
