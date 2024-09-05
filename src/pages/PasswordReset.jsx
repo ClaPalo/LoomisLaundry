@@ -71,7 +71,9 @@ const PasswordReset = () => {
                         )}
                         <div className="w-100 text-center mt-2">
                             Back to Login?{' '}
-                            <Link href="/#/LoomisLaundry/login">Login</Link>
+                            <Link href="/LoomisLaundry/#/LoomisLaundry/login">
+                                Login
+                            </Link>
                         </div>
                     </div>
                 </CardBody>

@@ -39,7 +39,7 @@ const Login = () => {
                 error,
             } = await login(email, password)
             if (error) setErrorMsg(error.message)
-            if (user && session) navigate('/#/LoomisLaundry/')
+            if (user && session) navigate('/LoomisLaundry/#/LoomisLaundry/')
         } catch (error) {
             setErrorMsg('Email or Password Incorrect')
         }
@@ -96,11 +96,13 @@ const Login = () => {
                     )}
                     <div className="w-100 text-center mt-2">
                         New User?{' '}
-                        <Link href="/#/LoomisLaundry/register">Register</Link>
+                        <Link href="/LoomisLaundry/#/LoomisLaundry/register">
+                            Register
+                        </Link>
                     </div>
                     <div className="w-100 text-center mt-1">
                         Forgot Password?{' '}
-                        <Link href="/#/LoomisLaundry/passwordreset">
+                        <Link href="/LoomisLaundry/#/LoomisLaundry/passwordreset">
                             Click Here
                         </Link>
                     </div>
