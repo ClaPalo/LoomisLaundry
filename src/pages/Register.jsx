@@ -17,7 +17,10 @@ const Register = () => {
         supabase.auth.signUp({
             email,
             password,
-            options: { data: { name: name, surname: surname } },
+            options: {
+                data: { name: name, surname: surname },
+                emailRedirectTo: 'https://www.paloscia.com/LoomisLaundry',
+            },
         })
 
     const handleNameChange = (e) => {
