@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useTimer } from 'react-timer-hook'
 import { useAuth } from '../context/AuthProvider'
 import { getUserName } from '../javascript/user_database'
+import { resetWasherState } from '../javascript/time_database'
 import {
     emptyLoad,
     finishLoad,
@@ -149,6 +150,10 @@ const Washer = ({ update }) => {
         setWasherState('EMPTY')
     }
 
+    const handleReset = () => {
+        resetWasherState(1)
+    }
+
     const pad = (n) => (n < 10 ? '0' + n : n)
 
     return (
@@ -216,6 +221,11 @@ const Washer = ({ update }) => {
                         {washerState === 'WORKING' && (
                             <div className="flex flex-row justify-between gap-3 m-4">
                                 <Button onClick={handleFinish}>Finish</Button>
+                            </div>
+                        )}
+                        {washerState === 'ERROR' && (
+                            <div className="flex flex-row justify-between gap-3 m-4">
+                                <Button onClick={handleReset}>Reset</Button>
                             </div>
                         )}
                     </div>

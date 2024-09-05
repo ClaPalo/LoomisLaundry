@@ -99,6 +99,15 @@ export async function finishLoad(id) {
     return data
 }
 
+export async function resetWasherState(id) {
+    const { data, error } = await supabase
+        .from('timer_track')
+        .update({ running: true, empty: true, end_time: 0 })
+        .eq('id', id)
+
+    return data
+}
+
 /**
  * subscribe to a load session and listen for changes
  *
