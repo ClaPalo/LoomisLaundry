@@ -1,29 +1,43 @@
+import { Button, Card, CardBody, Divider, Input, Link } from '@nextui-org/react'
 import { useRef, useState } from 'react'
-import { Alert, Button, Card, Form } from 'react-bootstrap'
-import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthProvider'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
-    const emailRef = useRef(null)
-    const passwordRef = useRef(null)
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
     const [errorMsg, setErrorMsg] = useState('')
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
     const { login, user } = useAuth()
+    const [inputColor, setInputColor] = useState('')
 
-    const handleSubmit = async (e) => {
-        e.preventDefault()
+    const handleEmailChange = (e) => {
+        setEmail(e)
+        setInputColor('')
+        setErrorMsg('')
+    }
+
+    const handlePasswordChange = (e) => {
+        setPassword(e)
+        setInputColor('')
+        setErrorMsg('')
+    }
+
+    const handleSubmit = async () => {
         try {
             setErrorMsg('')
             setLoading(true)
-            if (!passwordRef.current?.value || !emailRef.current?.value) {
+            if (password === '' || email === '') {
                 setErrorMsg('Please fill in the fields')
+                setInputColor('danger')
+                setLoading(false)
                 return
             }
             const {
                 data: { user, session },
                 error,
-            } = await login(emailRef.current.value, passwordRef.current.value)
+            } = await login(email, password)
             if (error) setErrorMsg(error.message)
             if (user && session) navigate('/')
         } catch (error) {
@@ -31,58 +45,65 @@ const Login = () => {
         }
         setLoading(false)
     }
-
     return (
-        <>
-            <Card>
-                <Card.Body>
-                    <h2 className="text-center mb-4">Login</h2>
-                    <Form onSubmit={handleSubmit}>
-                        <Form.Group id="email">
-                            <Form.Label>Email</Form.Label>
-                            <Form.Control
-                                type="email"
-                                ref={emailRef}
-                                required
-                            />
-                        </Form.Group>
-                        <Form.Group id="password">
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control
-                                type="password"
-                                ref={passwordRef}
-                                required
-                            />
-                        </Form.Group>
-                        {errorMsg && (
-                            <Alert
-                                variant="danger"
-                                onClose={() => setErrorMsg('')}
-                                dismissible
-                            >
-                                {errorMsg}
-                            </Alert>
-                        )}
-                        <div className="text-center mt-2">
-                            <Button
-                                disabled={loading}
-                                type="submit"
-                                className="w-50"
-                            >
-                                Login
-                            </Button>
+        <Card isBlurred>
+            <CardBody className="p-5">
+                <div className="flex flex-col gap-4">
+                    <Input
+                        placeholder="johndoe@gmail.com"
+                        autofocus
+                        type="email"
+                        label="Email"
+                        size="md"
+                        color={inputColor}
+                        labelPlacement="outside"
+                        variant="bordered"
+                        onValueChange={handleEmailChange}
+                    />
+                    <Input
+                        placeholder="********"
+                        type="password"
+                        label="Password"
+                        size="md"
+                        color={inputColor}
+                        labelPlacement="outside"
+                        variant="bordered"
+                        onValueChange={handlePasswordChange}
+                    />
+                    {errorMsg && (
+                        <div className="w-100 text-center mt-2 text-danger">
+                            {errorMsg}
                         </div>
-                    </Form>
-                </Card.Body>
-                <div className="w-100 text-center mt-2">
-                    New User? <Link to={'/register'}>Register</Link>
+                    )}
+                    {!loading && (
+                        <Button
+                            variant="shadow"
+                            color="primary"
+                            onClick={handleSubmit}
+                        >
+                            Login
+                        </Button>
+                    )}
+                    {loading && (
+                        <Button
+                            variant="shadow"
+                            color="primary"
+                            onClick={handleSubmit}
+                            isLoading
+                        >
+                            Login
+                        </Button>
+                    )}
+                    <div className="w-100 text-center mt-2">
+                        New User? <Link href="/register">Register</Link>
+                    </div>
+                    <div className="w-100 text-center mt-1">
+                        Forgot Password?{' '}
+                        <Link href="/passwordreset">Click Here</Link>
+                    </div>
                 </div>
-                <div className="w-100 text-center mt-2">
-                    Forgot Password?{' '}
-                    <Link to={'/passwordreset'}>Click Here</Link>
-                </div>
-            </Card>
-        </>
+            </CardBody>
+        </Card>
     )
 }
 

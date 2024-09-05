@@ -1,8 +1,5 @@
-import { Button } from 'react-bootstrap'
-import Container from 'react-bootstrap/Container'
-import Nav from 'react-bootstrap/Nav'
-import Navbar from 'react-bootstrap/Navbar'
-import { Link } from 'react-router-dom'
+import { Button, Navbar, NavbarContent, Link } from '@nextui-org/react'
+import { NavbarBrand } from 'react-bootstrap'
 import { useAuth } from '../context/AuthProvider'
 
 const NavBar = () => {
@@ -19,37 +16,33 @@ const NavBar = () => {
     }
 
     return (
-        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-            <Container>
-                <Navbar.Brand>UserAuth</Navbar.Brand>
-                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                <Navbar.Collapse id="responsive-navbar-nav">
-                    <Nav className="me-auto">
-                        {!auth && (
-                            <Nav.Link as={Link} to="/login">
-                                Login
-                            </Nav.Link>
-                        )}
-                        {!auth && (
-                            <Nav.Link as={Link} to="/register">
-                                Register
-                            </Nav.Link>
-                        )}
-                        {auth && (
-                            <Nav.Link as={Link} to="/">
-                                Home
-                            </Nav.Link>
-                        )}
-                    </Nav>
-                    <Nav>
-                        {auth && (
-                            <Nav.Link as={Button} onClick={handleLogout}>
-                                LogOut
-                            </Nav.Link>
-                        )}
-                    </Nav>
-                </Navbar.Collapse>
-            </Container>
+        <Navbar>
+            <NavbarContent justify="end">
+                {!auth && (
+                    <Button
+                        as={Link}
+                        color="primary"
+                        variant="shadow"
+                        href="/login"
+                    >
+                        Login
+                    </Button>
+                )}
+                {!auth && (
+                    <Button as={Link} variant="ghost" href="/register">
+                        Register
+                    </Button>
+                )}
+                {auth && (
+                    <Button
+                        onClick={handleLogout}
+                        color="danger"
+                        variant="shadow"
+                    >
+                        Logout
+                    </Button>
+                )}
+            </NavbarContent>
         </Navbar>
     )
 }

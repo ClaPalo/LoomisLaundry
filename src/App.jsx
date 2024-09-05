@@ -1,4 +1,3 @@
-import { Container } from 'react-bootstrap'
 import { Route, Routes } from 'react-router-dom'
 import AuthRoute from './components/AuthRoute'
 import Home from './pages/Home'
@@ -12,11 +11,11 @@ const App = () => {
     return (
         <>
             <NavBar />
-            <Container
-                className="d-flex align-items-center justify-content-center"
+            <div
+                className="flex justify-center p-5"
                 style={{ minHeight: '100vh' }}
             >
-                <div className="w-100" style={{ maxWidth: '400px' }}>
+                <div className="w-full">
                     <Routes>
                         <Route element={<AuthRoute />}>
                             <Route path="/" element={<Home />} />
@@ -34,7 +33,7 @@ const App = () => {
                         />
                     </Routes>
                 </div>
-            </Container>
+            </div>
         </>
     )
 }

@@ -13,7 +13,11 @@ export async function setTimeAndStart(loadId, timeValue, owner_id) {
     console.log('setting time: ', timeValue)
     const { data, error } = await supabase
         .from('timer_track')
-        .update({ end_time: timeValue, running: true, owner: owner_id })
+        .update({
+            end_time: timeValue,
+            running: true,
+            owner: owner_id,
+        })
         .eq('id', loadId)
 
     // console.log(error)
@@ -27,10 +31,15 @@ export async function setTimeAndStart(loadId, timeValue, owner_id) {
  * @param {int} loadId
  * @returns
  */
-export async function prepareNewTimer(loadId, owner_id) {
+export async function prepareNewTimer(loadId, owner_id, initialValue) {
     const { data, error } = await supabase
         .from('timer_track')
-        .update({ running: false, empty: false, owner: owner_id })
+        .update({
+            running: false,
+            empty: false,
+            owner: owner_id,
+            initial_value: initialValue,
+        })
         .eq('id', loadId)
 
     return data

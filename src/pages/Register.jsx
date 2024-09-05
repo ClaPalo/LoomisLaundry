@@ -1,17 +1,17 @@
-import { useRef, useState } from 'react'
-import { Alert, Button, Card, Form } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
 import { supabase } from '../supabaseClient'
+import { Card, CardBody, Input, Button, Link } from '@nextui-org/react'
 
 const Register = () => {
-    const emailRef = useRef(null)
-    const passwordRef = useRef(null)
-    const nameRef = useRef(null)
-    const surnameRef = useRef(null)
-    const confirmPasswordRef = useRef(null)
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [name, setName] = useState('')
+    const [surname, setSurname] = useState('')
+    const [confirmPasswordRef, setConfirmPasswordRef] = useState('')
     const [errorMsg, setErrorMsg] = useState('')
     const [msg, setMsg] = useState('')
     const [loading, setLoading] = useState(false)
+    const [inputColor, setInputColor] = useState('')
 
     const register = (email, password, name, surname) =>
         supabase.auth.signUp({
@@ -20,28 +20,56 @@ const Register = () => {
             options: { data: { name: name, surname: surname } },
         })
 
+    const handleNameChange = (e) => {
+        setName(e)
+        setErrorMsg('')
+        setInputColor('')
+    }
+
+    const handleSurnameChange = (e) => {
+        setSurname(e)
+        setErrorMsg('')
+        setInputColor('')
+    }
+
+    const handleEmailChange = (e) => {
+        setEmail(e)
+        setErrorMsg('')
+        setInputColor('')
+    }
+
+    const handlePasswordChange = (e) => {
+        setPassword(e)
+        setErrorMsg('')
+        setInputColor('')
+    }
+
+    const handleConfirmPasswordChange = (e) => {
+        setConfirmPasswordRef(e)
+        setErrorMsg('')
+        setInputColor('')
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault()
-        if (
-            !passwordRef.current?.value ||
-            !emailRef.current?.value ||
-            !confirmPasswordRef.current?.value
-        ) {
+        if (password === '' || email === '' || confirmPasswordRef === '') {
             setErrorMsg('Please fill all the fields')
+            setInputColor('danger')
             return
         }
-        if (passwordRef.current.value !== confirmPasswordRef.current.value) {
-            setErrorMsg("Passwords doesn't match")
+        if (password !== confirmPasswordRef) {
+            setErrorMsg("Passwords don't match")
+            setInputColor('danger')
             return
         }
         try {
             setErrorMsg('')
             setLoading(true)
             const { data, error } = await register(
-                emailRef.current.value,
-                passwordRef.current.value,
-                nameRef.current.value,
-                surnameRef.current.value
+                email,
+                password,
+                name,
+                surname
             )
             if (!error && data) {
                 setMsg(
@@ -49,87 +77,101 @@ const Register = () => {
                 )
             }
         } catch (error) {
-            setErrorMsg('Error in Creating Account')
+            setErrorMsg('Error in Creating Account. Ask Claudio for help.')
         }
         setLoading(false)
     }
 
     return (
-        <>
-            <Card>
-                <Card.Body>
-                    <h2 className="text-center mb-4">Register</h2>
-                    <Form onSubmit={handleSubmit}>
-                        <Form.Group id="name">
-                            <Form.Label>Name</Form.Label>
-                            <Form.Control type="text" ref={nameRef} required />
-                        </Form.Group>
-                        <Form.Group id="surname">
-                            <Form.Label>Surname</Form.Label>
-                            <Form.Control
-                                type="text"
-                                ref={surnameRef}
-                                required
-                            />
-                        </Form.Group>
-                        <Form.Group id="email">
-                            <Form.Label>Email</Form.Label>
-                            <Form.Control
-                                type="email"
-                                ref={emailRef}
-                                required
-                            />
-                        </Form.Group>
-                        <Form.Group id="password">
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control
-                                type="password"
-                                ref={passwordRef}
-                                required
-                            />
-                        </Form.Group>
-                        <Form.Group id="confirm-password">
-                            <Form.Label>Confirm Password</Form.Label>
-                            <Form.Control
-                                type="password"
-                                ref={confirmPasswordRef}
-                                required
-                            />
-                        </Form.Group>
-                        {errorMsg && (
-                            <Alert
-                                variant="danger"
-                                onClose={() => setErrorMsg('')}
-                                dismissible
-                            >
-                                {errorMsg}
-                            </Alert>
-                        )}
-                        {msg && (
-                            <Alert
-                                variant="success"
-                                onClose={() => setMsg('')}
-                                dismissible
-                            >
-                                {msg}
-                            </Alert>
-                        )}
-                        <div className="text-center mt-2">
-                            <Button
-                                disabled={loading}
-                                type="submit"
-                                className="w-50"
-                            >
-                                Register
-                            </Button>
+        <Card isBlurred>
+            <CardBody className="p-5">
+                <div className="flex flex-col gap-4">
+                    <Input
+                        placeholder="John"
+                        autoFocus
+                        isRequired
+                        type="text"
+                        label="Name"
+                        size="md"
+                        labelPlacement="outside"
+                        variant="bordered"
+                        onValueChange={handleNameChange}
+                    />
+                    <Input
+                        placeholder="Doe"
+                        isRequired
+                        type="text"
+                        label="Surname"
+                        size="md"
+                        labelPlacement="outside"
+                        variant="bordered"
+                        onValueChange={handleSurnameChange}
+                    />
+                    <Input
+                        placeholder="johndoe@gmail.com"
+                        isRequired
+                        type="email"
+                        label="Email"
+                        size="md"
+                        labelPlacement="outside"
+                        variant="bordered"
+                        onValueChange={handleEmailChange}
+                    />
+                    <Input
+                        placeholder="********"
+                        isRequired
+                        type="password"
+                        label="Password"
+                        size="md"
+                        labelPlacement="outside"
+                        variant="bordered"
+                        onValueChange={handlePasswordChange}
+                    />
+                    <Input
+                        placeholder="********"
+                        isRequired
+                        type="password"
+                        label="Confirm Password"
+                        size="md"
+                        labelPlacement="outside"
+                        variant="bordered"
+                        onValueChange={handleConfirmPasswordChange}
+                    />
+                    {errorMsg && (
+                        <div className="w-100 text-center mt-2 text-danger">
+                            {errorMsg}
                         </div>
-                    </Form>
-                </Card.Body>
-            </Card>
-            <div className="w-100 text-center mt-2">
-                Already a User? <Link to={'/login'}>Login</Link>
-            </div>
-        </>
+                    )}
+                    {msg && (
+                        <div className="w-100 text-center mt-2 text-success">
+                            {msg}
+                        </div>
+                    )}
+                    {loading && (
+                        <Button
+                            variant="shadow"
+                            color="primary"
+                            onClick={handleSubmit}
+                            isLoading
+                        >
+                            Register
+                        </Button>
+                    )}
+                    {!loading && (
+                        <Button
+                            variant="shadow"
+                            color="primary"
+                            onClick={handleSubmit}
+                        >
+                            Register
+                        </Button>
+                    )}
+                    <div className="w-100 text-center mt-2">
+                        Already registered? <Link href="/login">Login</Link>
+                    </div>
+                </div>
+            </CardBody>
+        </Card>
     )
 }
 
