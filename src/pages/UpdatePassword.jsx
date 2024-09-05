@@ -1,32 +1,39 @@
 import React, { useRef, useState } from 'react'
-import { Alert, Button, Card, Form } from 'react-bootstrap'
 import { useAuth } from '../context/AuthProvider'
 import { useNavigate } from 'react-router-dom'
+import { Card, Button, CardBody, Input } from '@nextui-org/react'
 
 const UpdatePassword = () => {
     const { updatePassword } = useAuth()
-    const passwordRef = useRef(null)
-    const confirmPasswordRef = useRef(null)
+    const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
     const [errorMsg, setErrorMsg] = useState('')
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
 
+    const handlePasswordChange = (e) => {
+        setPassword(e)
+        setErrorMsg('')
+    }
+
+    const handleConfirmPasswordChange = (e) => {
+        setConfirmPassword(e)
+        setErrorMsg('')
+    }
+
     const handleSubmit = async (e) => {
-        e.preventDefault()
-        if (!passwordRef.current?.value || !confirmPasswordRef.current?.value) {
+        if (password === '' || confirmPassword === '') {
             setErrorMsg('Please fill all the fields')
             return
         }
-        if (passwordRef.current.value !== confirmPasswordRef.current.value) {
+        if (password !== confirmPassword) {
             setErrorMsg("Passwords doesn't match. Try again")
             return
         }
         try {
             setErrorMsg('')
             setLoading(true)
-            const { data, error } = await updatePassword(
-                passwordRef.current.value
-            )
+            const { data, error } = await updatePassword(password)
             if (!error) {
                 navigate('/')
             }
@@ -39,45 +46,55 @@ const UpdatePassword = () => {
     return (
         <>
             <Card>
-                <Card.Body>
+                <CardBody>
                     <h2 className="text-center mb-4">Update Password</h2>
-                    <Form onSubmit={handleSubmit}>
-                        <Form.Group id="password">
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control
-                                type="password"
-                                ref={passwordRef}
-                                required
-                            />
-                        </Form.Group>
-                        <Form.Group id="confirm-password">
-                            <Form.Label>Confirm Password</Form.Label>
-                            <Form.Control
-                                type="password"
-                                ref={confirmPasswordRef}
-                                required
-                            />
-                        </Form.Group>
+                    <div className="flex flex-col gap-4">
+                        <Input
+                            placeholder="********"
+                            isRequired
+                            type="password"
+                            label="Password"
+                            size="md"
+                            labelPlacement="outside"
+                            variant="bordered"
+                            onValueChange={handlePasswordChange}
+                        />
+                        <Input
+                            placeholder="********"
+                            isRequired
+                            type="password"
+                            label="Confirm Password"
+                            size="md"
+                            labelPlacement="outside"
+                            variant="bordered"
+                            onValueChange={handleConfirmPasswordChange}
+                        />
                         {errorMsg && (
-                            <Alert
-                                variant="danger"
-                                onClose={() => setErrorMsg('')}
-                                dismissible
-                            >
+                            <div className="w-100 text-center mt-2 text-danger">
                                 {errorMsg}
-                            </Alert>
+                            </div>
                         )}
-                        <div className="text-center mt-2">
+                        {loading && (
                             <Button
-                                disabled={loading}
-                                type="submit"
-                                className="w-50"
+                                variant="shadow"
+                                color="primary"
+                                onClick={handleSubmit}
+                                isLoading
                             >
                                 Update
                             </Button>
-                        </div>
-                    </Form>
-                </Card.Body>
+                        )}
+                        {!loading && (
+                            <Button
+                                variant="shadow"
+                                color="primary"
+                                onClick={handleSubmit}
+                            >
+                                Update
+                            </Button>
+                        )}
+                    </div>
+                </CardBody>
             </Card>
         </>
     )

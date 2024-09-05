@@ -1,5 +1,5 @@
-import { Button, Card, CardBody, Divider, Input, Link } from '@nextui-org/react'
-import { useRef, useState } from 'react'
+import { Button, Card, CardBody, Input, Link } from '@nextui-org/react'
+import { useState } from 'react'
 import { useAuth } from '../context/AuthProvider'
 import { useNavigate } from 'react-router-dom'
 
@@ -46,7 +46,7 @@ const Login = () => {
         setLoading(false)
     }
     return (
-        <Card isBlurred>
+        <Card>
             <CardBody className="p-5">
                 <div className="flex flex-col gap-4">
                     <Input
@@ -95,11 +95,14 @@ const Login = () => {
                         </Button>
                     )}
                     <div className="w-100 text-center mt-2">
-                        New User? <Link href="/register">Register</Link>
+                        New User?{' '}
+                        <Link href="/LoomisLaundry/register">Register</Link>
                     </div>
                     <div className="w-100 text-center mt-1">
                         Forgot Password?{' '}
-                        <Link href="/passwordreset">Click Here</Link>
+                        <Link href="/LoomisLaundry/passwordreset">
+                            Click Here
+                        </Link>
                     </div>
                 </div>
             </CardBody>

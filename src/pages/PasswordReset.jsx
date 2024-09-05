@@ -1,22 +1,29 @@
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { useAuth } from '../context/AuthProvider'
-import { Alert, Button, Card, Form } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Card, CardBody, Input, Button, Link } from '@nextui-org/react'
 
 const PasswordReset = () => {
     const { passwordReset } = useAuth()
-    const emailRef = useRef(null)
+    const [email, setEmail] = useState('')
     const [loading, setLoading] = useState(false)
     const [msg, setMsg] = useState('')
 
+    const handleEmailChange = (e) => {
+        setEmail(e)
+        setMsg('')
+    }
+
     const handleSubmit = async (e) => {
-        e.preventDefault()
         try {
             setLoading(true)
-            const { data, error } = await passwordReset(emailRef.current.value)
-            console.log(error)
-            console.log(data)
-            setMsg('Password reset has been sent to your email')
+            if (email !== '') {
+                const { data, error } = await passwordReset(email)
+                console.log(error)
+                console.log(data)
+                setMsg('Password reset has been sent to your email')
+            } else {
+                setMsg('Please enter your email')
+            }
         } catch (e) {
             console.log(e)
         }
@@ -26,40 +33,48 @@ const PasswordReset = () => {
     return (
         <>
             <Card>
-                <Card.Body>
+                <CardBody>
                     <h2 className="text-center mb-4">Login</h2>
-                    <Form onSubmit={handleSubmit}>
-                        <Form.Group id="email">
-                            <Form.Label>Email</Form.Label>
-                            <Form.Control
-                                type="email"
-                                ref={emailRef}
-                                required
-                            />
-                        </Form.Group>
+                    <div className="flex flex-col gap-4">
+                        <Input
+                            placeholder="johndoe@gmail.com"
+                            autofocus
+                            type="email"
+                            label="Email"
+                            size="md"
+                            labelPlacement="outside"
+                            variant="bordered"
+                            onValueChange={handleEmailChange}
+                        />
+
                         {msg && (
-                            <Alert
-                                variant="success"
-                                onClose={() => setMsg('')}
-                                dismissible
-                            >
-                                {msg}
-                            </Alert>
+                            <div className="w-100 text-center mt-2">{msg}</div>
                         )}
-                        <div className="text-center mt-2">
+                        {loading && (
                             <Button
-                                disabled={loading}
-                                type="submit"
-                                className="w-50"
+                                variant="shadow"
+                                color="primary"
+                                onClick={handleSubmit}
+                                isLoading
                             >
-                                Send Reset Link
+                                Login
                             </Button>
+                        )}
+                        {!loading && (
+                            <Button
+                                variant="shadow"
+                                color="primary"
+                                onClick={handleSubmit}
+                            >
+                                Login
+                            </Button>
+                        )}
+                        <div className="w-100 text-center mt-2">
+                            Back to Login?{' '}
+                            <Link href="/LoomisLaundry/login">Login</Link>
                         </div>
-                    </Form>
-                </Card.Body>
-                <div className="w-100 text-center mt-2">
-                    Back to Login? <Link to={'/login'}>Login</Link>
-                </div>
+                    </div>
+                </CardBody>
             </Card>
         </>
     )

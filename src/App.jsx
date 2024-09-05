@@ -1,11 +1,11 @@
 import { Route, Routes } from 'react-router-dom'
+import NavBar from './components/Navbar'
 import AuthRoute from './components/AuthRoute'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import PasswordReset from './pages/PasswordReset'
 import Register from './pages/Register'
 import UpdatePassword from './pages/UpdatePassword'
-import NavBar from './components/Navbar'
 
 const App = () => {
     return (
@@ -18,17 +18,26 @@ const App = () => {
                 <div className="w-full">
                     <Routes>
                         <Route element={<AuthRoute />}>
-                            <Route path="/" element={<Home />} />
-                            <Route path="/home" element={<Home />} />
+                            <Route path="/LoomisLaundry/" element={<Home />} />
+                            <Route
+                                path="/LoomisLaundry/home"
+                                element={<Home />}
+                            />
                         </Route>
-                        <Route path="/register" element={<Register />} />
-                        <Route path="/login" element={<Login />} />
                         <Route
-                            path="/passwordreset"
+                            path="/LoomisLaundry/register"
+                            element={<Register />}
+                        />
+                        <Route
+                            path="/LoomisLaundry/login"
+                            element={<Login />}
+                        />
+                        <Route
+                            path="/LoomisLaundry/passwordreset"
                             element={<PasswordReset />}
                         />
                         <Route
-                            path="/update-password"
+                            path="/LoomisLaundry/update-password"
                             element={<UpdatePassword />}
                         />
                     </Routes>

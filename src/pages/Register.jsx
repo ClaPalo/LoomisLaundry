@@ -7,7 +7,7 @@ const Register = () => {
     const [password, setPassword] = useState('')
     const [name, setName] = useState('')
     const [surname, setSurname] = useState('')
-    const [confirmPasswordRef, setConfirmPasswordRef] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
     const [errorMsg, setErrorMsg] = useState('')
     const [msg, setMsg] = useState('')
     const [loading, setLoading] = useState(false)
@@ -45,19 +45,19 @@ const Register = () => {
     }
 
     const handleConfirmPasswordChange = (e) => {
-        setConfirmPasswordRef(e)
+        setConfirmPassword(e)
         setErrorMsg('')
         setInputColor('')
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        if (password === '' || email === '' || confirmPasswordRef === '') {
+        if (password === '' || email === '' || confirmPassword === '') {
             setErrorMsg('Please fill all the fields')
             setInputColor('danger')
             return
         }
-        if (password !== confirmPasswordRef) {
+        if (password !== confirmPassword) {
             setErrorMsg("Passwords don't match")
             setInputColor('danger')
             return
@@ -83,7 +83,7 @@ const Register = () => {
     }
 
     return (
-        <Card isBlurred>
+        <Card>
             <CardBody className="p-5">
                 <div className="flex flex-col gap-4">
                     <Input
@@ -95,6 +95,7 @@ const Register = () => {
                         size="md"
                         labelPlacement="outside"
                         variant="bordered"
+                        color={inputColor}
                         onValueChange={handleNameChange}
                     />
                     <Input
@@ -105,6 +106,7 @@ const Register = () => {
                         size="md"
                         labelPlacement="outside"
                         variant="bordered"
+                        color={inputColor}
                         onValueChange={handleSurnameChange}
                     />
                     <Input
@@ -115,6 +117,7 @@ const Register = () => {
                         size="md"
                         labelPlacement="outside"
                         variant="bordered"
+                        color={inputColor}
                         onValueChange={handleEmailChange}
                     />
                     <Input
@@ -125,6 +128,7 @@ const Register = () => {
                         size="md"
                         labelPlacement="outside"
                         variant="bordered"
+                        color={inputColor}
                         onValueChange={handlePasswordChange}
                     />
                     <Input
@@ -135,6 +139,7 @@ const Register = () => {
                         size="md"
                         labelPlacement="outside"
                         variant="bordered"
+                        color={inputColor}
                         onValueChange={handleConfirmPasswordChange}
                     />
                     {errorMsg && (
@@ -167,7 +172,8 @@ const Register = () => {
                         </Button>
                     )}
                     <div className="w-100 text-center mt-2">
-                        Already registered? <Link href="/login">Login</Link>
+                        Already registered?{' '}
+                        <Link href="/LoomisLaundry/login">Login</Link>
                     </div>
                 </div>
             </CardBody>

@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import { useState } from 'react'
-import Timer from './Timer'
 import { useTimer } from 'react-timer-hook'
 import { useAuth } from '../context/AuthProvider'
 import { getUserName } from '../javascript/user_database'
@@ -23,7 +22,7 @@ import {
     ModalFooter,
     Slider,
 } from '@nextui-org/react'
-import { CardBody, CardFooter, CardHeader, ModalHeader } from 'react-bootstrap'
+import { CardBody, CardFooter, CardHeader } from 'react-bootstrap'
 import { useDisclosure } from '@nextui-org/react'
 
 const Washer = ({ id }) => {

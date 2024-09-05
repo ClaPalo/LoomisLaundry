@@ -1,5 +1,4 @@
 import { Button, Navbar, NavbarContent, Link } from '@nextui-org/react'
-import { NavbarBrand } from 'react-bootstrap'
 import { useAuth } from '../context/AuthProvider'
 
 const NavBar = () => {
@@ -23,13 +22,17 @@ const NavBar = () => {
                         as={Link}
                         color="primary"
                         variant="shadow"
-                        href="/login"
+                        href="/LoomisLaundry/login"
                     >
                         Login
                     </Button>
                 )}
                 {!auth && (
-                    <Button as={Link} variant="ghost" href="/register">
+                    <Button
+                        as={Link}
+                        variant="ghost"
+                        href="/LoomisLaundry/register"
+                    >
                         Register
                     </Button>
                 )}
