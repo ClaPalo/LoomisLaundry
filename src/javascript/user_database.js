@@ -11,3 +11,12 @@ export async function getUserName(id) {
 
 	return data
 }
+
+export async function getUserEmail(id) {
+	const { data, error } = await supabase
+		.from('Users')
+		.select('email')
+		.eq('id', id)
+
+	return data
+}
