@@ -30,7 +30,6 @@ const Machine = ({ update, id }) => {
     const [washerState, setWasherState] = useState('') // States are WORKING, FINISHED, EMPTY, LOADED
     const [time, setTime] = useState(0)
     const [ownerName, setOwnerName] = useState('')
-    const [ownerEmail, setOwnerEmail] = useState('')
     const [initialValue, setInitialValue] = useState(7200)
     const [sliderModified, setSliderModified] = useState(false)
     const [sliderValue, setSliderValue] = useState(3600)
@@ -38,7 +37,8 @@ const Machine = ({ update, id }) => {
     const { isOpen, onOpen, onOpenChange } = useDisclosure()
 
     const modes = {
-        1 : {ACTIVEWEAR: 2700,
+        1: {
+            ACTIVEWEAR: 2700,
             DELICATES: 3000,
             'BULKY ITEMS': 3300,
             TOWELS: 3900,
@@ -47,8 +47,9 @@ const Machine = ({ update, id }) => {
             COLORS: 2700,
             WHITES: 3900,
             'HEAVY DUTY': 4500,
-            JEANS: 3600,}, 
-        2 : {
+            JEANS: 3600,
+        },
+        2: {
             '15 min': 900,
             '30 min': 1800,
             '60 min': 3600,
@@ -60,14 +61,13 @@ const Machine = ({ update, id }) => {
         {
             expiryTimestamp: new Date(),
             autoStart: false,
-            onExpire: () => { setWasherState('FINISHED'),
-                              sendEmailNotification(ownerEmail); // Trigger email notification when timer expires
-            }
+            onExpire: () => {
+                setWasherState('FINISHED'), sendEmailNotification(user.email) // Trigger email notification when timer expires
+            },
         }
     )
 
-    const sendEmailNotification = (email) => {
-    }
+    const sendEmailNotification = (email) => {}
 
     // Set timer and update time state
     const setTimer = (seconds) => {
@@ -118,10 +118,6 @@ const Machine = ({ update, id }) => {
                 setOwnerName(res[0].name)
             })
 
-            getUserEmail(data['owner']).then((res) => {
-                setOwnerEmail(res[0].email)
-            })                
-
             setInitialValue(data['initial_value'])
         }
 
@@ -138,7 +134,6 @@ const Machine = ({ update, id }) => {
         setInitialValue(seconds)
         prepareNewTimer(id, user.id, seconds)
         setOwnerName(user.name)
-        setOwnerEmail(user.email)
         setWasherState('LOADED')
     }
 
@@ -177,7 +172,9 @@ const Machine = ({ update, id }) => {
         <>
             <Card className="bg-neutral-900/80">
                 <CardHeader>
-                    <h2 className="font-bold text-2xl mt-4">{id === 1 ? 'Washing Machine' : 'Dryer'}</h2>
+                    <h2 className="font-bold text-2xl mt-4">
+                        {id === 1 ? 'Washing Machine' : 'Dryer'}
+                    </h2>
                     <p className="mb-2">{washerState}</p>
                 </CardHeader>
                 <CardBody>
@@ -313,9 +310,7 @@ const Machine = ({ update, id }) => {
                                         <Button
                                             onClick={() => {
                                                 setSliderModified(false)
-                                                handleStartNew(
-                                                    modes[id][mode]
-                                                )
+                                                handleStartNew(modes[id][mode])
                                                 onClose()
                                             }}
                                             key={mode}
