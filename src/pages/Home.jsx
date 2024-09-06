@@ -1,5 +1,6 @@
 import Dryer from '../components/Dryer'
 import Washer from '../components/Washer'
+import Machine from '../components/Machine'
 import { useEffect, useState } from 'react'
 import { subscribeToRoom } from '../javascript/time_database'
 
@@ -16,8 +17,8 @@ const Home = () => {
 
     return (
         <div className="flex flex-col gap-5">
-            <Washer update={update} />
-            <Dryer update={update} />
+            <Machine update={update} id={1} />
+            <Machine update={update} id={2} />
             {/* <Washer id={2} /> */}
         </div>
     )
