@@ -152,7 +152,7 @@ const Dryer = ({ update }) => {
 
     return (
         <>
-            <Card>
+            <Card className="bg-neutral-900/80">
                 <CardHeader>
                     <h2 className="font-bold text-2xl mt-4">Dryer</h2>
                     <p className="mb-2">{washerState}</p>
@@ -192,21 +192,55 @@ const Dryer = ({ update }) => {
 
                         {washerState === 'FINISHED' && (
                             <div className="flex flex-row justify-between gap-3 m-4">
-                                <Button onClick={handleEmpty}>Empty</Button>
-                                <Button onClick={onOpen}>Start New Load</Button>
+                                <Button
+                                    onClick={handleEmpty}
+                                    variant="flat"
+                                    color="primary"
+                                >
+                                    Empty
+                                </Button>
+                                <Button
+                                    onClick={onOpen}
+                                    variant="flat"
+                                    color="primary"
+                                >
+                                    Start New Load
+                                </Button>
                             </div>
                         )}
                         {washerState === 'EMPTY' && (
                             <div className="flex flex-row justify-between gap-3 m-4">
-                                <Button onClick={onOpen}>Start New Load</Button>
+                                <Button
+                                    onClick={onOpen}
+                                    variant="flat"
+                                    color="primary"
+                                >
+                                    Start New Load
+                                </Button>
                             </div>
                         )}
                         {washerState === 'LOADED' && (
                             <>
                                 <div className="flex flex-row justify-between gap-3 m-4">
-                                    <Button onClick={handleStart}>Start</Button>
-                                    <Button onClick={handleEmpty}>Empty</Button>
-                                    <Button onClick={onOpen}>
+                                    <Button
+                                        onClick={handleStart}
+                                        variant="flat"
+                                        color="primary"
+                                    >
+                                        Start
+                                    </Button>
+                                    <Button
+                                        onClick={handleEmpty}
+                                        variant="flat"
+                                        color="primary"
+                                    >
+                                        Empty
+                                    </Button>
+                                    <Button
+                                        onClick={onOpen}
+                                        variant="flat"
+                                        color="primary"
+                                    >
                                         Change timer
                                     </Button>
                                 </div>
@@ -214,12 +248,24 @@ const Dryer = ({ update }) => {
                         )}
                         {washerState === 'WORKING' && (
                             <div className="flex flex-row justify-between gap-3 m-4">
-                                <Button onClick={handleFinish}>Finish</Button>
+                                <Button
+                                    onClick={handleFinish}
+                                    variant="flat"
+                                    color="primary"
+                                >
+                                    Finish
+                                </Button>
                             </div>
                         )}
                         {washerState === 'ERROR' && (
                             <div className="flex flex-row justify-between gap-3 m-4">
-                                <Button onClick={handleReset}>Reset</Button>
+                                <Button
+                                    onClick={handleReset}
+                                    variant="flat"
+                                    color="primary"
+                                >
+                                    Reset
+                                </Button>
                             </div>
                         )}
                     </div>
@@ -229,7 +275,12 @@ const Dryer = ({ update }) => {
                     {washerState !== 'EMPTY' && <p>Loaded by {ownerName}</p>}
                 </CardFooter>
             </Card>
-            <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+            <Modal
+                isOpen={isOpen}
+                onOpenChange={onOpenChange}
+                backdrop="blur"
+                className="dark text-white"
+            >
                 <ModalContent>
                     {(onClose) => (
                         <>
@@ -246,10 +297,13 @@ const Dryer = ({ update }) => {
                                                     onClose()
                                                 }}
                                                 key={mode}
+                                                variant="flat"
+                                                color="primary"
                                             >
                                                 {mode}
                                             </Button>
                                         ))}
+
                                         <Button
                                             className="col-span-2"
                                             onClick={() => {
@@ -257,12 +311,15 @@ const Dryer = ({ update }) => {
                                                 handleStartNew(5400)
                                                 onClose()
                                             }}
+                                            variant="flat"
+                                            color="primary"
                                         >
                                             Default
                                         </Button>
                                     </>
+                                    <Divider className="m-2 col-span-2" />
                                     <Slider
-                                        className="col-span-2 mt-4"
+                                        className="col-span-2"
                                         label="Custom time"
                                         minValue={0}
                                         maxValue={7200}
@@ -281,15 +338,15 @@ const Dryer = ({ update }) => {
                                         }}
                                         size="lg"
                                         style={{
-                                            color: '#000',
+                                            color: '#fff',
                                         }}
                                     />
                                 </div>
                             </ModalBody>
                             <ModalFooter>
                                 <Button
-                                    color="primary"
-                                    variant="ghost"
+                                    color="success"
+                                    variant="shadow"
                                     onPress={() => {
                                         if (sliderModified) {
                                             handleStartNew(sliderValue)

@@ -2,6 +2,10 @@ import { Button, Card, CardBody, Input, Link } from '@nextui-org/react'
 import { useState } from 'react'
 import { useAuth } from '../context/AuthProvider'
 import { useNavigate } from 'react-router-dom'
+import { IoMdEye } from 'react-icons/io'
+import { IoMdEyeOff } from 'react-icons/io'
+import { IoIosMail } from 'react-icons/io'
+import { FaKey } from 'react-icons/fa6'
 
 const Login = () => {
     const [email, setEmail] = useState('')
@@ -11,6 +15,9 @@ const Login = () => {
     const navigate = useNavigate()
     const { login, user } = useAuth()
     const [inputColor, setInputColor] = useState('')
+    const [isVisible, setIsVisible] = useState(false)
+
+    const toggleVisibility = () => setIsVisible(!isVisible)
 
     const handleEmailChange = (e) => {
         setEmail(e)
@@ -55,6 +62,7 @@ const Login = () => {
                         type="email"
                         label="Email"
                         size="md"
+                        startContent={<IoIosMail className="text-2xl" />}
                         color={inputColor}
                         labelPlacement="outside"
                         variant="bordered"
@@ -62,13 +70,28 @@ const Login = () => {
                     />
                     <Input
                         placeholder="********"
-                        type="password"
                         label="Password"
                         size="md"
+                        startContent={<FaKey className="text-l" />}
                         color={inputColor}
                         labelPlacement="outside"
                         variant="bordered"
                         onValueChange={handlePasswordChange}
+                        endContent={
+                            <button
+                                className="focus:outline-none"
+                                type="button"
+                                onClick={toggleVisibility}
+                                aria-label="toggle password visibility"
+                            >
+                                {isVisible ? (
+                                    <IoMdEyeOff className="text-2xl text-default-400 pointer-events-none" />
+                                ) : (
+                                    <IoMdEye className="text-2xl text-default-400 pointer-events-none" />
+                                )}
+                            </button>
+                        }
+                        type={isVisible ? 'text' : 'password'}
                     />
                     {errorMsg && (
                         <div className="w-100 text-center mt-2 text-danger">

@@ -37,7 +37,6 @@ const Washer = ({ update }) => {
     const { isOpen, onOpen, onOpenChange } = useDisclosure()
 
     const washerModes = {
-        NORMAL: 3600,
         ACTIVEWEAR: 2700,
         DELICATES: 3000,
         'BULKY ITEMS': 3300,
@@ -159,7 +158,7 @@ const Washer = ({ update }) => {
 
     return (
         <>
-            <Card>
+            <Card className="bg-neutral-900/80">
                 <CardHeader>
                     <h2 className="font-bold text-2xl mt-4">Washing machine</h2>
                     <p className="mb-2">{washerState}</p>
@@ -199,21 +198,55 @@ const Washer = ({ update }) => {
 
                         {washerState === 'FINISHED' && (
                             <div className="flex flex-row justify-between gap-3 m-4">
-                                <Button onClick={handleEmpty}>Empty</Button>
-                                <Button onClick={onOpen}>Start New Load</Button>
+                                <Button
+                                    onClick={handleEmpty}
+                                    variant="flat"
+                                    color="primary"
+                                >
+                                    Empty
+                                </Button>
+                                <Button
+                                    onClick={onOpen}
+                                    variant="flat"
+                                    color="primary"
+                                >
+                                    Start New Load
+                                </Button>
                             </div>
                         )}
                         {washerState === 'EMPTY' && (
                             <div className="flex flex-row justify-between gap-3 m-4">
-                                <Button onClick={onOpen}>Start New Load</Button>
+                                <Button
+                                    onClick={onOpen}
+                                    variant="flat"
+                                    color="primary"
+                                >
+                                    Start New Load
+                                </Button>
                             </div>
                         )}
                         {washerState === 'LOADED' && (
                             <>
                                 <div className="flex flex-row justify-between gap-3 m-4">
-                                    <Button onClick={handleStart}>Start</Button>
-                                    <Button onClick={handleEmpty}>Empty</Button>
-                                    <Button onClick={onOpen}>
+                                    <Button
+                                        onClick={handleStart}
+                                        variant="flat"
+                                        color="primary"
+                                    >
+                                        Start
+                                    </Button>
+                                    <Button
+                                        onClick={handleEmpty}
+                                        variant="flat"
+                                        color="primary"
+                                    >
+                                        Empty
+                                    </Button>
+                                    <Button
+                                        onClick={onOpen}
+                                        variant="flat"
+                                        color="primary"
+                                    >
                                         Change timer
                                     </Button>
                                 </div>
@@ -221,12 +254,24 @@ const Washer = ({ update }) => {
                         )}
                         {washerState === 'WORKING' && (
                             <div className="flex flex-row justify-between gap-3 m-4">
-                                <Button onClick={handleFinish}>Finish</Button>
+                                <Button
+                                    onClick={handleFinish}
+                                    variant="flat"
+                                    color="primary"
+                                >
+                                    Finish
+                                </Button>
                             </div>
                         )}
                         {washerState === 'ERROR' && (
                             <div className="flex flex-row justify-between gap-3 m-4">
-                                <Button onClick={handleReset}>Reset</Button>
+                                <Button
+                                    onClick={handleReset}
+                                    variant="flat"
+                                    color="primary"
+                                >
+                                    Reset
+                                </Button>
                             </div>
                         )}
                     </div>
@@ -236,7 +281,12 @@ const Washer = ({ update }) => {
                     {washerState !== 'EMPTY' && <p>Loaded by {ownerName}</p>}
                 </CardFooter>
             </Card>
-            <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+            <Modal
+                isOpen={isOpen}
+                onOpenChange={onOpenChange}
+                backdrop="blur"
+                className="dark text-white"
+            >
                 <ModalContent>
                     {(onClose) => (
                         <>
@@ -252,12 +302,27 @@ const Washer = ({ update }) => {
                                                 onClose()
                                             }}
                                             key={mode}
+                                            variant="flat"
+                                            color="primary"
                                         >
                                             {mode}
                                         </Button>
                                     ))}
+                                    <Button
+                                        onClick={() => {
+                                            setSliderModified(false)
+                                            handleStartNew(3600)
+                                            onClose()
+                                        }}
+                                        variant="flat"
+                                        color="primary"
+                                        className="col-span-2"
+                                    >
+                                        NORMAL
+                                    </Button>
+                                    <Divider className="col-span-2 m-2" />
                                     <Slider
-                                        className="col-span-2 mt-4"
+                                        className="col-span-2"
                                         label="Custom time"
                                         minValue={0}
                                         maxValue={7200}
@@ -276,15 +341,15 @@ const Washer = ({ update }) => {
                                         }}
                                         size="lg"
                                         style={{
-                                            color: '#000',
+                                            color: '#fff',
                                         }}
                                     />
                                 </div>
                             </ModalBody>
                             <ModalFooter>
                                 <Button
-                                    color="primary"
-                                    variant="ghost"
+                                    color="success"
+                                    variant="shadow"
                                     onPress={() => {
                                         if (sliderModified) {
                                             handleStartNew(sliderValue)

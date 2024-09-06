@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { supabase } from '../supabaseClient'
 import { Card, CardBody, Input, Button, Link } from '@nextui-org/react'
+import { IoMdEye } from 'react-icons/io'
+import { IoMdEyeOff } from 'react-icons/io'
 
 const Register = () => {
     const [email, setEmail] = useState('')
@@ -12,6 +14,9 @@ const Register = () => {
     const [msg, setMsg] = useState('')
     const [loading, setLoading] = useState(false)
     const [inputColor, setInputColor] = useState('')
+    const [isVisible, setIsVisible] = useState(false)
+
+    const toggleVisibility = () => setIsVisible(!isVisible)
 
     const register = (email, password, name, surname) =>
         supabase.auth.signUp({
@@ -126,7 +131,21 @@ const Register = () => {
                     <Input
                         placeholder="********"
                         isRequired
-                        type="password"
+                        endContent={
+                            <button
+                                className="focus:outline-none"
+                                type="button"
+                                onClick={toggleVisibility}
+                                aria-label="toggle password visibility"
+                            >
+                                {isVisible ? (
+                                    <IoMdEyeOff className="text-2xl text-default-400 pointer-events-none" />
+                                ) : (
+                                    <IoMdEye className="text-2xl text-default-400 pointer-events-none" />
+                                )}
+                            </button>
+                        }
+                        type={isVisible ? 'text' : 'password'}
                         label="Password"
                         size="md"
                         labelPlacement="outside"
@@ -137,7 +156,21 @@ const Register = () => {
                     <Input
                         placeholder="********"
                         isRequired
-                        type="password"
+                        endContent={
+                            <button
+                                className="focus:outline-none"
+                                type="button"
+                                onClick={toggleVisibility}
+                                aria-label="toggle password visibility"
+                            >
+                                {isVisible ? (
+                                    <IoMdEyeOff className="text-2xl text-default-400 pointer-events-none" />
+                                ) : (
+                                    <IoMdEye className="text-2xl text-default-400 pointer-events-none" />
+                                )}
+                            </button>
+                        }
+                        type={isVisible ? 'text' : 'password'}
                         label="Confirm Password"
                         size="md"
                         labelPlacement="outside"
