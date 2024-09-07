@@ -32,7 +32,10 @@ const PasswordReset = () => {
 
     return (
         <>
-            <Card className="w-full md:w-1/2 lg:w-1/4">
+            <Card
+                className="w-full md:w-1/2 lg:w-1/4"
+                onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
+            >
                 <CardBody>
                     <h2 className="text-center mb-4">Reset password</h2>
                     <div className="flex flex-col gap-4">

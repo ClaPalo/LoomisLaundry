@@ -53,7 +53,10 @@ const Login = () => {
         setLoading(false)
     }
     return (
-        <Card className="w-full md:w-1/2 lg:w-1/4">
+        <Card
+            className="w-full md:w-1/2 lg:w-1/4"
+            onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
+        >
             <CardBody className="p-5">
                 <div className="flex flex-col gap-4">
                     <Input
