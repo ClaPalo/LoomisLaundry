@@ -92,7 +92,7 @@ const Register = () => {
 
     return (
         <Card
-            className="w-full md:w-1/2 lg:w-1/4"
+            className="w-full md:w-1/2 lg:w-1/4 dark:bg-neutral-900/80 bg-white/60"
             onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
         >
             <CardBody className="p-5">

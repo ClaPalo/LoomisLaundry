@@ -170,7 +170,7 @@ const Machine = ({ update, id }) => {
 
     return (
         <>
-            <Card className="dark:bg-neutral-900/80 md:w-1/2 lg:w-1/4 w-full h-full bg-slate-200/80">
+            <Card className="dark:bg-neutral-900/80 md:w-1/2 lg:w-1/4 w-full h-full bg-slate-200/70">
                 <CardHeader>
                     <h2 className="font-bold text-2xl mt-4 text-blue-600">
                         {id === 1 ? 'Washing Machine' : 'Dryer'}
@@ -193,6 +193,7 @@ const Machine = ({ update, id }) => {
                                 classNames={{
                                     svg: 'w-36 h-36 drop-shadow-md',
                                     value: 'text-3xl font-semibold',
+                                    track: 'stroke-gray-200/70 dark:stroke-white/20',
                                 }}
                                 aria-label="Washer"
                             ></CircularProgress>
