@@ -53,7 +53,7 @@ const Login = () => {
         setLoading(false)
     }
     return (
-        <Card>
+        <Card className="w-full md:w-1/2 lg:w-1/4">
             <CardBody className="p-5">
                 <div className="flex flex-col gap-4">
                     <Input

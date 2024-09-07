@@ -170,7 +170,7 @@ const Machine = ({ update, id }) => {
 
     return (
         <>
-            <Card className="bg-neutral-900/80">
+            <Card className="bg-neutral-900/80 md:w-1/2 lg:w-1/4 w-full h-full">
                 <CardHeader>
                     <h2 className="font-bold text-2xl mt-4">
                         {id === 1 ? 'Washing Machine' : 'Dryer'}

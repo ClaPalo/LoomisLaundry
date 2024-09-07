@@ -15,7 +15,7 @@ const App = () => {
                 className="flex justify-center p-5"
                 style={{ minHeight: '100vh' }}
             >
-                <div className="w-full">
+                <div className="w-full justify-center items-start flex">
                     <Routes>
                         <Route element={<AuthRoute />}>
                             <Route path="/" element={<Home />} />

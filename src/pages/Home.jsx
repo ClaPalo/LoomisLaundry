@@ -16,7 +16,7 @@ const Home = () => {
     }, [update])
 
     return (
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-5 justify-center items-center w-full">
             <Machine update={update} id={1} />
             <Machine update={update} id={2} />
             {/* <Washer id={2} /> */}

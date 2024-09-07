@@ -45,7 +45,7 @@ const UpdatePassword = () => {
 
     return (
         <>
-            <Card>
+            <Card className="w-full md:w-1/2 lg:w-1/4">
                 <CardBody>
                     <h2 className="text-center mb-4">Update Password</h2>
                     <div className="flex flex-col gap-4">
