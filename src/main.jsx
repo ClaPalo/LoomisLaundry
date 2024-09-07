@@ -12,7 +12,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <NextUIProvider>
             <HashRouter>
                 <AuthProvider>
-                    <main className="dark h-full">
+                    <main className="h-full">
                         <App />
                     </main>
                 </AuthProvider>

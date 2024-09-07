@@ -170,12 +170,12 @@ const Machine = ({ update, id }) => {
 
     return (
         <>
-            <Card className="bg-neutral-900/80 md:w-1/2 lg:w-1/4 w-full h-full">
+            <Card className="dark:bg-neutral-900/80 md:w-1/2 lg:w-1/4 w-full h-full bg-slate-200/80">
                 <CardHeader>
-                    <h2 className="font-bold text-2xl mt-4">
+                    <h2 className="font-bold text-2xl mt-4 text-blue-600">
                         {id === 1 ? 'Washing Machine' : 'Dryer'}
                     </h2>
-                    <p className="mb-2">{washerState}</p>
+                    <p className="mb-2 text-blue-500">{washerState}</p>
                 </CardHeader>
                 <CardBody>
                     <div className="flex flex-col justify-center items-center mt-2">
@@ -192,7 +192,7 @@ const Machine = ({ update, id }) => {
                                 }
                                 classNames={{
                                     svg: 'w-36 h-36 drop-shadow-md',
-                                    value: 'text-3xl font-semibold text-white',
+                                    value: 'text-3xl font-semibold',
                                 }}
                                 aria-label="Washer"
                             ></CircularProgress>
@@ -299,7 +299,7 @@ const Machine = ({ update, id }) => {
                 isOpen={isOpen}
                 onOpenChange={onOpenChange}
                 backdrop="blur"
-                className="dark text-white"
+                className=""
             >
                 <ModalContent>
                     {(onClose) => (
@@ -353,7 +353,7 @@ const Machine = ({ update, id }) => {
                                         }}
                                         size="lg"
                                         style={{
-                                            color: '#fff',
+                                            color: '#006FEE',
                                         }}
                                     />
                                 </div>

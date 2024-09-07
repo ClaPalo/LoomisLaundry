@@ -1,5 +1,6 @@
 import { Button, Navbar, NavbarContent, Link } from '@nextui-org/react'
 import { useAuth } from '../context/AuthProvider'
+import { ThemeSwitcher } from './ThemeSwitcher'
 
 const NavBar = () => {
     const { auth, signOut } = useAuth()
@@ -16,6 +17,9 @@ const NavBar = () => {
 
     return (
         <Navbar>
+            <NavbarContent justify="start">
+                <ThemeSwitcher />
+            </NavbarContent>
             <NavbarContent justify="end">
                 {!auth && (
                     <Button

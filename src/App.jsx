@@ -6,10 +6,15 @@ import Login from './pages/Login'
 import PasswordReset from './pages/PasswordReset'
 import Register from './pages/Register'
 import UpdatePassword from './pages/UpdatePassword'
+import useDarkMode from 'use-dark-mode'
+
+window.global = globalThis
 
 const App = () => {
+    const darkMode = useDarkMode(false)
+
     return (
-        <>
+        <div>
             <NavBar />
             <div
                 className="flex justify-center p-5"
@@ -34,7 +39,7 @@ const App = () => {
                     </Routes>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 
