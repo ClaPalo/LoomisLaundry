@@ -1,5 +1,3 @@
-import Dryer from '../components/Dryer'
-import Washer from '../components/Washer'
 import Machine from '../components/Machine'
 import { useEffect, useState } from 'react'
 import { subscribeToRoom } from '../javascript/time_database'
