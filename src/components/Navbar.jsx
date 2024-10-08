@@ -31,15 +31,6 @@ const NavBar = () => {
                         Login
                     </Button>
                 )}
-                {!auth && (
-                    <Button
-                        as={Link}
-                        variant="ghost"
-                        href="/LoomisLaundry/#/register"
-                    >
-                        Register
-                    </Button>
-                )}
                 {auth && (
                     <Button
                         onClick={handleLogout}

@@ -3,10 +3,8 @@ import NavBar from './components/Navbar'
 import AuthRoute from './components/AuthRoute'
 import Home from './pages/Home'
 import Login from './pages/Login'
-import PasswordReset from './pages/PasswordReset'
-import Register from './pages/Register'
-import UpdatePassword from './pages/UpdatePassword'
 import useDarkMode from 'use-dark-mode'
+import Demo from './pages/Demo'
 
 window.global = globalThis
 
@@ -26,16 +24,8 @@ const App = () => {
                             <Route path="/" element={<Home />} />
                             <Route path="/home" element={<Home />} />
                         </Route>
-                        <Route path="/register" element={<Register />} />
                         <Route path="/login" element={<Login />} />
-                        <Route
-                            path="/passwordreset"
-                            element={<PasswordReset />}
-                        />
-                        <Route
-                            path="/update-password"
-                            element={<UpdatePassword />}
-                        />
+                        <Route path="/demo" element={<Demo />} />
                     </Routes>
                 </div>
             </div>

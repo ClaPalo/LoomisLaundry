@@ -1,16 +1,15 @@
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { useTimer } from 'react-timer-hook'
-import { useAuth } from '../context/AuthProvider'
 import { getUserName } from '../javascript/user_database'
-import { resetWasherState } from '../javascript/time_database'
+import { resetWasherState } from '../javascript/time_database_demo'
 import {
     emptyLoad,
     finishLoad,
     getLoadData,
     prepareNewTimer,
     setTimeAndStart,
-} from '../javascript/time_database'
+} from '../javascript/time_database_demo'
 import {
     Button,
     Card,
@@ -25,8 +24,11 @@ import {
 import { CardBody, CardFooter, CardHeader } from 'react-bootstrap'
 import { useDisclosure } from '@nextui-org/react'
 
-const Machine = ({ update, id }) => {
-    const { user } = useAuth()
+const MachineDemo = ({ update, id }) => {
+    const user = {
+        id: '23b3ed5c-f4e4-41da-8137-6f25e4c7d9d9',
+        name: 'John',
+    }
     const [washerState, setWasherState] = useState('') // States are WORKING, FINISHED, EMPTY, LOADED
     const [time, setTime] = useState(0)
     const [ownerName, setOwnerName] = useState('')
@@ -287,6 +289,9 @@ const Machine = ({ update, id }) => {
                                 </Button>
                             </div>
                         )}
+                        {id === 1 && (
+                            <p className="text-xs">(Try me with two tabs)</p>
+                        )}
                     </div>
                 </CardBody>
                 <Divider />
@@ -379,4 +384,4 @@ const Machine = ({ update, id }) => {
     )
 }
 
-export default Machine
+export default MachineDemo

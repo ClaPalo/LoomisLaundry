@@ -121,13 +121,9 @@ const Login = () => {
                         </Button>
                     )}
                     <div className="w-100 text-center mt-2">
-                        New User?{' '}
-                        <Link href="/LoomisLaundry/#/register">Register</Link>
-                    </div>
-                    <div className="w-100 text-center mt-1">
-                        Forgot Password?{' '}
-                        <Link href="/LoomisLaundry/#/passwordreset">
-                            Click Here
+                        Just visiting?{' '}
+                        <Link href="/LoomisLaundry/#/demo">
+                            Go to the demo!
                         </Link>
                     </div>
                 </div>
